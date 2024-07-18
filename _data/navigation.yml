@@ -1,8 +1,10 @@
 # main links
 main:
-  - title: "카테고리"
-    url: https://ImRian.github.io/categories/
-   - title: "태그"
-    url: https://ImRian.github.io/tags/
-    -title: "Front-end"
-    url:https://ImRian.github.io/front-end/
+  #- title: "Home"
+  #  url: "/"
+  - title: "Introduce"
+    url: /about/
+  - title: "Category"
+    url: "/categories/"
+  - title: "Tags"
+    url: /tags/
