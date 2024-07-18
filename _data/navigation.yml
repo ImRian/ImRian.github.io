@@ -1,10 +1,8 @@
-# main links
-main:
-  #- title: "Home"
-  #  url: "/"
-  - title: "Introduce"
-    url: /about/
-  - title: "Category"
-    url: "/categories/"
-  - title: "Tags"
-    url: /tags/
+ - title: "Language"
+ children: 
+   - title: "Markdown"
+     url: categories/markdown
+     category: "markdown"
+   - title: "Python"
+     url: categories/python
+     category: "python"
