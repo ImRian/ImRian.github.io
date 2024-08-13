@@ -1,19 +1,19 @@
-main:
-  - title: "Home"
-    url: "/"
-  - title: "Front-end"
-    url: /categories/#Front-end
-    children:
-      - title: "React"
-        url: /categories/#React
-      - title: "JavaScript"
-        url: /categories/#JavaScript
-      - title: "TypeScript"
-        url: /categories/#TypeScript
-  - title: "Back-end"
-    url: /categories/#Back-end
-    children:
-      - title: "NodeJS"
-        url: /categories/#NodeJS
-  - title: "Server"
-    url: /categories/#Server
+# main:
+#   - title: "Home"
+#     url: "/"
+#   - title: "Front-end"
+#     url: /categories/#Front-end
+#     children:
+#       - title: "React"
+#         url: /categories/#React
+#       - title: "JavaScript"
+#         url: /categories/#JavaScript
+#       - title: "TypeScript"
+#         url: /categories/#TypeScript
+#   - title: "Back-end"
+#     url: /categories/#Back-end
+#     children:
+#       - title: "NodeJS"
+#         url: /categories/#NodeJS
+#   - title: "Server"
+#     url: /categories/#Server
