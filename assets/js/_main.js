@@ -1,14 +1,18 @@
+/* ==========================================================================
+   jQuery plugin settings and other scripts
+   ========================================================================== */
+
 $(document).ready(function () {
-  // 기존의 FitVids 초기화
+  // FitVids init
   $("#main").fitVids();
 
-  // Follow 메뉴 드롭다운 이벤트 핸들러
+  // Follow menu drop down
   $(".author__urls-wrapper button").on("click", function () {
     $(".author__urls").toggleClass("is--visible");
     $(".author__urls-wrapper").find("button").toggleClass("open");
   });
 
-  // Esc 키로 검색 화면 닫기
+  // Close search screen with Esc key
   $(document).keyup(function (e) {
     if (e.keyCode === 27) {
       if ($(".initial-content").hasClass("is--hidden")) {
@@ -18,17 +22,17 @@ $(document).ready(function () {
     }
   });
 
-  // 검색 토글 이벤트 핸들러
+  // Search toggle
   $(".search__toggle").on("click", function () {
     $(".search-content").toggleClass("is--visible");
     $(".initial-content").toggleClass("is--hidden");
-    // 검색 input에 포커스 설정
+    // set focus on input
     setTimeout(function () {
       $(".search-content input").focus();
     }, 400);
   });
 
-  // Smooth 스크롤 설정
+  // Smooth scrolling
   var scroll = new SmoothScroll('a[href*="#"]', {
     offset: 20,
     speed: 400,
@@ -36,27 +40,27 @@ $(document).ready(function () {
     durationMax: 500,
   });
 
-  // Gumshoe 스크롤 스파이 초기화
+  // Gumshoe scroll spy init
   if ($("nav.toc").length > 0) {
     var spy = new Gumshoe("nav.toc a", {
-      // 활성화 클래스
-      navClass: "active", // 네비게이션 목록 아이템에 적용
-      contentClass: "active", // 콘텐츠에 적용
+      // Active classes
+      navClass: "active", // applied to the nav list item
+      contentClass: "active", // applied to the content
 
-      // 중첩된 네비게이션
-      nested: false, // true이면, 활성화 링크의 부모에게 클래스 추가
-      nestedClass: "active", // 부모 아이템에 적용할 클래스
+      // Nested navigation
+      nested: false, // if true, add classes to parents of active link
+      nestedClass: "active", // applied to the parent items
 
-      // Offset 및 리플로우
-      offset: 20, // 페이지 상단에서 콘텐츠 영역을 활성화할 거리
-      reflow: true, // true이면 리플로우 리스닝
+      // Offset & reflow
+      offset: 20, // how far from the top of the page to activate a content area
+      reflow: true, // if true, listen for reflows
 
-      // 이벤트 지원
-      events: true, // true이면, 커스텀 이벤트 발행
+      // Event support
+      events: true, // if true, emit custom events
     });
   }
 
-  // Sticky ToC와 콘텐츠 자동 스크롤
+  // Auto scroll sticky ToC with content
   const scrollTocToContent = function (event) {
     var target = event.target;
     var scrollOptions = { behavior: "auto", block: "nearest", inline: "start" };
@@ -66,40 +70,48 @@ $(document).ready(function () {
     if (window.getComputedStyle(tocElement).position !== "sticky") return;
 
     if (target.parentElement.classList.contains("toc__menu") && target == target.parentElement.firstElementChild) {
-      // 대신 상단으로 스크롤
+      // Scroll to top instead
       document.querySelector("nav.toc header").scrollIntoView(scrollOptions);
     } else {
       target.scrollIntoView(scrollOptions);
     }
   };
 
-  // Firefox에 문제가 있어, Chrome만 화이트리스트에 추가
+  // Has issues on Firefox, whitelist Chrome for now
   if (!!window.chrome) {
     document.addEventListener("gumshoeActivate", scrollTocToContent);
   }
 
-  // 모든 이미지 링크에 lightbox 클래스 추가
+  // add lightbox class to all image links
   $(
     "a[href$='.jpg'],a[href$='.jpeg'],a[href$='.JPG'],a[href$='.png'],a[href$='.gif'],a[href$='.webp']"
   ).has("> img").addClass("image-popup");
 
-  // Magnific-Popup 옵션
+  // Magnific-Popup options
   $(".image-popup").magnificPopup({
+    // disableOn: function() {
+    //   if( $(window).width() < 500 ) {
+    //     return false;
+    //   }
+    //   return true;
+    // },
     type: "image",
     tLoading: "Loading image #%curr%...",
     gallery: {
       enabled: true,
       navigateByImgClick: true,
-      preload: [0, 1], // 0 - 현재 이전, 1 - 현재 이미지 이후 미리 로드
+      preload: [0, 1], // Will preload 0 - before current, and 1 after the current image
     },
     image: {
       tError: '<a href="%url%">Image #%curr%</a> could not be loaded.',
     },
-    removalDelay: 500, // 팝업이 제거되기 전 지연 시간 (밀리초)
+    removalDelay: 500, // Delay in milliseconds before popup is removed
+    // Class that is added to body when popup is open.
+    // make it unique to apply your CSS animations just to this exact popup
     mainClass: "mfp-zoom-in",
     callbacks: {
       beforeOpen: function () {
-        // mfp-anim 클래스를 마크업에 추가하는 해킹
+        // just a hack that adds mfp-anim class to markup
         this.st.image.markup = this.st.image.markup.replace(
           "mfp-figure",
           "mfp-figure mfp-with-anim"
@@ -107,25 +119,10 @@ $(document).ready(function () {
       },
     },
     closeOnContentClick: true,
-    midClick: true, // 중간 마우스 클릭으로 팝업 열기 허용
+    midClick: true, // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
   });
 
-  // 사이드바 카테고리 토글 기능 추가 (이 부분 추가됨)
-  $(".sidebar li").on("click", function(e) {
-    // 클릭된 항목의 하위 목록을 토글
-    $(this).children("ul").slideToggle(200);
-
-    // 다른 열린 항목 닫기
-    $(this).siblings("li").find("ul").slideUp(200);
-
-    // active 클래스 관리
-    $(this).siblings("li").removeClass("active");
-    $(this).toggleClass("active");
-
-    e.stopPropagation();  // 클릭 이벤트 상위로 전파 방지
-  });
-
-  // 헤딩에 앵커 추가
+  // Add anchors for headings
   document
     .querySelector(".page__content")
     .querySelectorAll("h1, h2, h3, h4, h5, h6")
@@ -142,7 +139,7 @@ $(document).ready(function () {
       }
     });
 
-  // <pre> 블록에 복사 버튼 추가
+  // Add copy button for <pre> blocks
   var copyText = function (text) {
     if (document.queryCommandEnabled("copy") && navigator.clipboard) {
       navigator.clipboard.writeText(text).then(
@@ -156,7 +153,7 @@ $(document).ready(function () {
       var textarea = document.createElement("textarea");
       textarea.className = "clipboard-helper";
       textarea.style[isRTL ? "right" : "left"] = "-9999px";
-      // 세로 위치 동일하게 이동
+      // Move element to the same position vertically
       var yPosition = window.pageYOffset || document.documentElement.scrollTop;
       textarea.style.top = yPosition + "px";
 
@@ -179,24 +176,24 @@ $(document).ready(function () {
   var copyButtonEventListener = function (event) {
     var thisButton = event.target;
 
-    // <code> 요소 찾기
+    // Locate the <code> element
     var codeBlock = thisButton.nextElementSibling;
     while (codeBlock && codeBlock.tagName.toLowerCase() !== "code") {
       codeBlock = codeBlock.nextElementSibling;
     }
     if (!codeBlock) {
-      // <code>가 없으면 에러 처리
+      // No <code> found - wtf?
       console.warn(thisButton);
       throw new Error("No code block found for this button.");
     }
 
-    // 라인 번호가 있으면 건너뜀 (예: {% highlight lineno %})
+    // Skip line numbers if present (i.e. {% highlight lineno %})
     var realCodeBlock = codeBlock.querySelector("td.code, td.rouge-code");
     if (realCodeBlock) {
       codeBlock = realCodeBlock;
     }
     var result = copyText(codeBlock.innerText);
-    // 버튼에 포커스 복원
+    // Restore the focus to the button
     thisButton.focus();
     if (result) {
       if (thisButton.interval !== null) {
@@ -216,9 +213,9 @@ $(document).ready(function () {
     document
       .querySelectorAll(".page__content pre.highlight > code")
       .forEach(function (element, index, parentList) {
-        // <pre> 요소 찾기
+        // Locate the <pre> element
         var container = element.parentElement;
-        // 기존에 버튼이 없으면 새로 추가
+        // Sanity check - don't add an extra button if there's already one
         if (container.firstElementChild.tagName.toLowerCase() !== "code") {
           return;
         }
