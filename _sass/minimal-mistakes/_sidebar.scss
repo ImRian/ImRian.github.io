@@ -1,15 +1,16 @@
+/* 사이드바 기본 스타일 */
 .sidebar {
   @include clearfix();
-  background-color: #f9f9f9;  /* 사이드바 배경색 추가 */
-  padding: 1.5em;  /* 사이드바 내부 여백 추가 */
-  border: 1px solid #ddd;  /* 테두리 추가 */
-  border-radius: 10px;  /* 모서리를 둥글게 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 약간의 그림자 추가 */
+  background-color: #f9f9f9;  /* 사이드바 배경색 */
+  padding: 1.5em;  /* 사이드바 내부 여백 */
+  border: 1px solid #ddd;  /* 테두리 */
+  border-radius: 10px;  /* 모서리 둥글게 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 그림자 */
 
   @include breakpoint($large) {
     float: inline-start;
     width: calc(#{$right-sidebar-width-narrow} - 1em);
-    opacity: 0.9;  /* 사이드바 투명도 조절 */
+    opacity: 0.9;  /* 투명도 */
     -webkit-transition: opacity 0.2s ease-in-out, background-color 0.3s ease;
     transition: opacity 0.2s ease-in-out, background-color 0.3s ease;
 
@@ -40,7 +41,7 @@
   h6 {
     margin-bottom: 0.5em;
     font-family: $sans-serif-narrow;
-    color: #333;  /* 제목 색상 변경 */
+    color: #333;  /* 제목 색상 */
   }
 
   p,
@@ -48,7 +49,7 @@
     font-family: $sans-serif;
     font-size: $type-size-6;
     line-height: 1.6;
-    color: #555;  /* 텍스트 색상 변경 */
+    color: #555;  /* 텍스트 색상 */
   }
 
   img {
@@ -61,14 +62,14 @@
   }
 
   a {
-    color: #007acc;  /* 링크 색상 변경 */
+    color: #007acc;  /* 링크 색상 */
     text-decoration: none;
     position: relative;
     display: inline-block;
     padding-bottom: 2px;
 
     &:hover {
-      color: #005fa3;  /* 호버 시 링크 색상 변경 */
+      color: #005fa3;  /* 호버 시 링크 색상 */
       text-decoration: underline;
     }
 
@@ -88,6 +89,16 @@
       width: 100%;
     }
   }
+}
+
+/* 사이드바 하위 메뉴 숨기기 */
+.sidebar ul ul {
+  display: none;
+}
+
+/* 활성화된 항목의 하위 메뉴 표시 */
+.sidebar li.active > ul {
+  display: block;
 }
 
 .sidebar__right {
