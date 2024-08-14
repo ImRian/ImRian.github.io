@@ -1,37 +1,25 @@
-/* ==========================================================================
-   SIDEBAR
-   ========================================================================== */
-
-/*
-   Default
-   ========================================================================== */
-
 .sidebar {
   @include clearfix();
-  // @include breakpoint(max-width $large) {
-  //   /* fix z-index order of follow links */
-  //   position: relative;
-  //   z-index: 10;
-  //   -webkit-transform: translate3d(0, 0, 0);
-  //   transform: translate3d(0, 0, 0);
-  // }
+  background-color: #f9f9f9;  /* 사이드바 배경색 추가 */
+  padding: 1.5em;  /* 사이드바 내부 여백 추가 */
+  border: 1px solid #ddd;  /* 테두리 추가 */
+  border-radius: 10px;  /* 모서리를 둥글게 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 약간의 그림자 추가 */
 
   @include breakpoint($large) {
     float: inline-start;
     width: calc(#{$right-sidebar-width-narrow} - 1em);
-    opacity: 0.75;
-    -webkit-transition: opacity 0.2s ease-in-out;
-    transition: opacity 0.2s ease-in-out;
+    opacity: 0.9;  /* 사이드바 투명도 조절 */
+    -webkit-transition: opacity 0.2s ease-in-out, background-color 0.3s ease;
+    transition: opacity 0.2s ease-in-out, background-color 0.3s ease;
 
     &:hover {
       opacity: 1;
+      background-color: #f0f0f0;  /* 호버 시 배경색 변경 */
     }
 
     &.sticky {
       overflow-y: auto;
-      /* calculate height of nav list
-         viewport height - nav height - masthead x-padding
-      */
       max-height: calc(100vh - #{$nav-height} - 2em);
     }
   }
@@ -41,8 +29,8 @@
   }
 
   > * {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
   }
 
   h2,
@@ -50,15 +38,17 @@
   h4,
   h5,
   h6 {
-    margin-bottom: 0;
+    margin-bottom: 0.5em;
     font-family: $sans-serif-narrow;
+    color: #333;  /* 제목 색상 변경 */
   }
 
   p,
   li {
     font-family: $sans-serif;
     font-size: $type-size-6;
-    line-height: 1.5;
+    line-height: 1.6;
+    color: #555;  /* 텍스트 색상 변경 */
   }
 
   img {
@@ -67,6 +57,35 @@
     &.emoji {
       width: 20px;
       height: 20px;
+    }
+  }
+
+  a {
+    color: #007acc;  /* 링크 색상 변경 */
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+
+    &:hover {
+      color: #005fa3;  /* 호버 시 링크 색상 변경 */
+      text-decoration: underline;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #007acc;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    &:hover::after {
+      width: 100%;
     }
   }
 }
@@ -105,225 +124,15 @@
   }
 }
 
-.splash .sidebar__right {
-  @include breakpoint($large) {
-    position: relative;
-    float: inline-end;
-    margin-inline-end: 0;
-  }
-
-  @include breakpoint($x-large) {
-    margin-inline-end: 0;
-  }
-}
-
-/*
-   Author profile and links
-   ========================================================================== */
-
-.author__avatar {
-  display: table-cell;
-  vertical-align: top;
-  width: 36px;
-  height: 36px;
-
-  @include breakpoint($large) {
-    display: block;
-    width: auto;
-    height: auto;
-  }
-
-  img {
-    max-width: 110px;
-    border-radius: 50%;
-
-    @include breakpoint($large) {
-      padding: 5px;
-      border: 1px solid $border-color;
-    }
-  }
-}
-
-.author__content {
-  display: table-cell;
-  vertical-align: top;
-  padding-inline: 15px 25px;
-  line-height: 1;
-
-  @include breakpoint($large) {
-    display: block;
-    width: 100%;
-    padding-inline: 0;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-}
-
-.author__name {
-  margin: 0;
-
-  @include breakpoint($large) {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-}
 .sidebar .author__name {
   font-family: $sans-serif;
   font-size: $type-size-5;
+  color: #333;
 }
 
-.author__bio {
-  margin: 0;
-
-  @include breakpoint($large) {
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
+.sidebar .author__bio {
+  color: #777;
 }
-
-.author__urls-wrapper {
-  position: relative;
-  display: table-cell;
-  vertical-align: middle;
-  font-family: $sans-serif;
-  z-index: 20;
-  cursor: pointer;
-
-  li:last-child {
-    a {
-      margin-bottom: 0;
-    }
-  }
-
-  .author__urls {
-    span.label {
-      padding-inline-start: 5px;
-    }
-  }
-
-  @include breakpoint($large) {
-    display: block;
-  }
-
-  button {
-    position: relative;
-    margin-bottom: 0;
-
-    &:before {
-      @supports (pointer-events: none) {
-        content: '';
-        position: fixed;
-        top: 0;
-        inset-inline-start: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
-    }
-
-    &.open {
-      &:before {
-        pointer-events: auto;
-      }
-    }
-
-    @include breakpoint($large) {
-      display: none;
-    }
-  }
-}
-
-.author__urls {
-  display: none;
-  position: absolute;
-  inset-inline-end: 0;
-  margin-top: 15px;
-  padding: 10px;
-  list-style-type: none;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  background: $background-color;
-  box-shadow: 0 2px 4px 0 rgba(#000, 0.16), 0 2px 10px 0 rgba(#000, 0.12);
-  cursor: default;
-
-  &.is--visible {
-    display: block;
-  }
-
-  @include breakpoint($large) {
-    display: block;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  &::before {
-    display: block;
-    content: "";
-    position: absolute;
-    top: -11px;
-    inset-inline-start: calc(50% - 10px);
-    width: 0;
-    border-style: solid;
-    border-width: 0 10px 10px;
-    border-color: $border-color transparent;
-    z-index: 0;
-
-    @include breakpoint($large) {
-      display: none;
-    }
-  }
-
-  &:after {
-    display: block;
-    content: "";
-    position: absolute;
-    top: -10px;
-    inset-inline-start: calc(50% - 10px);
-    width: 0;
-    border-style: solid;
-    border-width: 0 10px 10px;
-    border-color: $background-color transparent;
-    z-index: 1;
-
-    @include breakpoint($large) {
-      display: none;
-    }
-  }
-
-  ul {
-    padding: 10px;
-    list-style-type: none;
-  }
-
-  li {
-    white-space: nowrap;
-  }
-
-  a {
-    display: block;
-    margin-bottom: 5px;
-    padding-block: 2px;
-    padding-inline-end: 5px;
-    color: inherit;
-    font-size: $type-size-5;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-/*
-   Wide Pages
-   ========================================================================== */
 
 .wide .sidebar__right {
   margin-bottom: 1em;
