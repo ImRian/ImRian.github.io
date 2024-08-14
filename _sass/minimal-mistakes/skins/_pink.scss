@@ -4,8 +4,8 @@
 
 /* Colors */
 $background-color: #fbeaf0 !default;
-$text-color: #5a1f3d !default;
-$muted-text-color: #b87d93 !default;
+$text-color: #3e0d23 !default; /* 텍스트 색상을 더 진하게 변경 */
+$muted-text-color: #8e3a4d !default; /* 덜 강조된 텍스트 색상도 더 진하게 변경 */
 $primary-color: #B38498 !default;
 $border-color: #e3a3b2 !default;
 $footer-background-color: #B38498 !default;
@@ -15,7 +15,7 @@ $masthead-link-color-hover: #7a5070 !default;
 $navicon-link-color-hover: mix(#fff, #B38498, 80%) !default;
 
 /* pink syntax highlighting (base16) */
-$base00: #5a1f3d !default;
+$base00: #3e0d23 !default;
 $base01: #7a2f55 !default;
 $base02: #b04b7a !default;
 $base03: #d86d94 !default;
