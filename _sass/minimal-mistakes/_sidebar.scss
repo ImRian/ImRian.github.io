@@ -1,26 +1,17 @@
-/* ==========================================================================
-   Sidebar Styles
-   ========================================================================== */
-
-/* 기본 스타일 */
 .sidebar {
-  @include clearfix();
-  background-color: #f9f9f9;
-  padding: 1.5em;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  @include breakpoint($large) {
-    float: inline-start;
+  margin-top: 1em;
+  background-color: #c77a7a;
+  padding: 15px;
+  color: #FFFFFF;
+  @media (min-width: $large) {
+    float: left;
     width: calc(#{$right-sidebar-width-narrow} - 1em);
     opacity: 0.9;
-    -webkit-transition: opacity 0.2s ease-in-out, background-color 0.3s ease;
     transition: opacity 0.2s ease-in-out, background-color 0.3s ease;
 
     &:hover {
       opacity: 1;
-      background-color: #f0f0f0;
+      background-color: #c77a7a;
     }
 
     &.sticky {
@@ -29,180 +20,60 @@
     }
   }
 
-  @include breakpoint($x-large) {
+  @media (min-width: $x-large) {
     width: calc(#{$right-sidebar-width} - 1em);
   }
-
-  > * {
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-  }
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin-bottom: 0.5em;
-    font-family: $sans-serif-narrow;
-    color: #333;
-    cursor: pointer;
-  }
-
-  p,
-  li {
-    font-family: $sans-serif;
-    font-size: $type-size-6;
-    line-height: 1.6;
-    color: #555;
-  }
-
-  img {
-    width: 100%;
-
-    &.emoji {
-      width: 20px;
-      height: 20px;
-    }
-  }
-
-  a {
-    color: #007acc;
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
-    padding-bottom: 2px;
-
-    &:hover {
-      color: #005fa3;
-      text-decoration: underline;
-    }
-
-    &::after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 2px;
-      background: #007acc;
-      transition: width 0.3s;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
-
-    &:hover::after {
-      width: 100%;
-    }
-  }
-
-  ul {
-    list-style: none; /* 리스트 스타일 제거 */
-    padding: 0;
-  }
-
-  li {
-    margin-bottom: 0.5em;
-
-    & > a {
-      font-weight: bold; /* 상위 카테고리의 링크를 굵게 */
-      color: #333; /* 링크 색상 */
-      text-decoration: none;
-    }
-
-    & > a:hover {
-      color: #007acc; /* 호버 시 색상 */
-    }
-
-    & > ul {
-      margin-top: 0.5em;
-      padding-left: 1.5em; /* 서브 카테고리의 왼쪽 여백 */
-    }
-  }
-
-  /* 하위 메뉴 숨기기 */
-  ul ul {
-    display: none;
-  }
-
-  /* 활성화된 항목의 하위 메뉴 표시 */
-  li.active > ul {
-    display: block;
-  }
 }
 
-/* 사이드바 하위 메뉴 숨기기 */
-.sidebar ul ul {
+.sidebar h2 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  color: #ffffff;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 1em;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #FFFFFF;
+  padding: 10px;
+  display: block;
+  background-color: #672020;
+  font-size:15px;
+  border-radius: 4px;
+}
+
+.sidebar a:hover {
+  background-color: #90849f;
+}
+
+.sidebar .dropdown-menu {
   display: none;
+  padding-left: 15px;
 }
 
-/* 활성화된 항목의 하위 메뉴 표시 */
-.sidebar li.active > ul {
+.sidebar li:hover > .dropdown-menu {
   display: block;
 }
 
-.sidebar__right {
-  margin-bottom: 1em;
-
-  @include breakpoint($large) {
-    position: absolute;
-    top: 0;
-    inset-inline-end: 0;
-    width: $right-sidebar-width-narrow;
-    margin-inline-end: -1 * $right-sidebar-width-narrow;
-    padding-inline-start: 1em;
-    z-index: 10;
-
-    &.sticky {
-      @include clearfix();
-      position: -webkit-sticky;
-      position: sticky;
-      top: 2em;
-      float: inline-end;
-
-      .toc {
-        .toc__menu {
-          overflow-y: auto;
-          max-height: calc(100vh - 7em);
-        }
-      }
-    }
-  }
-
-  @include breakpoint($x-large) {
-    width: $right-sidebar-width;
-    margin-inline-end: -1 * $right-sidebar-width;
-  }
+.sidebar .dropdown-menu a {
+  background-color: #937474;
+  margin-top: 5px;
 }
 
-.sidebar .author__name {
-  font-family: $sans-serif;
-  font-size: $type-size-5;
-  color: #333;
+.sidebar .dropdown-menu a:hover {
+  background-color: #693f3f;
 }
 
-.sidebar .author__bio {
-  color: #777;
-}
-
-.wide .sidebar__right {
-  margin-bottom: 1em;
-
-  @include breakpoint($large) {
-    position: initial;
-    top: initial;
-    inset-inline-end: initial;
-    width: initial;
-    margin-inline-end: initial;
-    padding-inline-start: initial;
-    z-index: initial;
-
-    &.sticky {
-      float: none;
-    }
-  }
-
-  @include breakpoint($x-large) {
-    width: initial;
-    margin-inline-end: initial;
-  }
+/* 서브 메뉴 추가 스타일 */
+.sidebar .dropdown-menu .dropdown-menu {
+  padding-left: 15px;
 }
